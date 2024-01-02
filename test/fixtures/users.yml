@@ -7,7 +7,7 @@ one:
   name: MyString
 
 two:
-  email: MyString
-  password: MyString
-  password_confirmation: MyString
-  name: MyString
+  email: MyStringOne
+  password: MyStringOne
+  password_confirmation: MyStringOne
+  name: MyStringOne
