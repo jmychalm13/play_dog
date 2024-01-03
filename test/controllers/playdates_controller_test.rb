@@ -44,4 +44,19 @@ class PlaydatesControllerTest < ActionDispatch::IntegrationTest
     data = JSON.parse(response.body)
     assert_equal "updated location", data["location"]
   end
+
+  test "show" do
+    get "/playdates/#{@playdate.id}.json"
+    assert_response 200
+
+    data = JSON.parse(response.body)
+    assert_equal ["id", "location", "time", "user_id", "dog_id"], data.keys
+  end
+
+  test "destroy" do
+    assert_difference "Playdate.count", -1 do
+      delete "/playdates/#{@playdate.id}.json"
+      assert_response 200
+    end
+  end
 end

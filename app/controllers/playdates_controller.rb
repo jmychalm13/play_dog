@@ -32,4 +32,16 @@ class PlaydatesController < ApplicationController
       render json: { message: "There was an error updating this playdate." }
     end
   end
+
+  def show
+    @playdate = Playdate.find(params[:id])
+    render :show
+  end
+
+  def destroy
+    playdate = Playdate.find(params[:id])
+    playdate.destroy
+
+    render json: { message: "Playdate successfully destroyed" }
+  end
 end
