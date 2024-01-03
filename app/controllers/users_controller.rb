@@ -11,24 +11,30 @@ class UsersController < ApplicationController
       password: params[:password],
       password_confirmation: params[:password_confirmation]
     )
-    render :show
+    if @user.valid?
+      render :show
+    else
+      render json: { message: "There was an error creating the user." }
+    end
   end
 
   def show
     @user = User.find(params[:id])
-    :show
+    render :show
   end
 
   # todo: user update method
-  # def update
-  #   @user = User.find(params[:id])
-  #   @user.update(
-  #     name: params[:name] || @user.name,
-  #     email: params[:email] || @user.email,
-  #     password: @user.password,
-  #     password_confirmation: @user.password_confirmation
-  #   )
+  def update
+    @user = User.find(params[:id])
+    @user.update(
+      name: params[:name] || @user.name,
+      email: params[:email] || @user.email,
+    )
 
-  #   render :show
-  # end
+    if @user.valid?
+      render :show
+    else
+      render json: { message: "There was error updating the user." }
+    end
+  end
 end

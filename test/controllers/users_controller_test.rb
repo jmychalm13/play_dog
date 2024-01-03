@@ -1,6 +1,14 @@
 require "test_helper"
 
 class UsersControllerTest < ActionDispatch::IntegrationTest
+  setup do
+    @user = User.create(
+      email: "test@fake.com",
+      password: "password",
+      password_confirmation: "password",
+      name: "Testy McTesterson"
+    )
+  end
 
   test "index" do
     get "/users.json"
@@ -30,14 +38,13 @@ class UsersControllerTest < ActionDispatch::IntegrationTest
     assert_equal ["id", "name", "email"], data.keys
   end
 
-  # test "update" do
-  #   user = User.first
-  #   patch "/users/#{user.id}.json", params: {
-  #     email: "updated email"
-  #   }
-  #   assert_response 200
+  test "update" do
+    patch "/users/#{@user.id}.json", params: {
+      email: "updated email"
+    }
+    assert_response 200
 
-  #   data = JSON.parse(response.body)
-  #   assert_equal "updated email", data[:email]
-  # end
+    data = JSON.parse(response.body)
+    assert_equal "updated email", data["email"]
+  end
 end
