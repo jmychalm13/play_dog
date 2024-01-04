@@ -8,12 +8,6 @@ class PlaydatesControllerTest < ActionDispatch::IntegrationTest
       password_confirmation: "password",
       name: "Testy McTesterson"
     )
-    @playdate = Playdate.create(
-      location: "test park",
-      time: "2024-01-02 13:45:30",
-      user_id: User.first,
-      dog_id: Dog.first,
-    )
   end
 
   test "index" do
@@ -30,13 +24,12 @@ class PlaydatesControllerTest < ActionDispatch::IntegrationTest
         location: "park",
         time: "2024-01-02 13:45:30",
         user_id: User.first.id,
-        dog_id: Dog.first.id,
       } 
     end
   end
 
   test "update" do
-    patch "/playdates/#{@playdate.id}.json", params: {
+    patch "/playdates/#{Playdate.first.id}.json", params: {
       location: "updated location"
     }
     assert_response 200
@@ -46,16 +39,16 @@ class PlaydatesControllerTest < ActionDispatch::IntegrationTest
   end
 
   test "show" do
-    get "/playdates/#{@playdate.id}.json"
+    get "/playdates/#{Playdate.first.id}.json"
     assert_response 200
 
     data = JSON.parse(response.body)
-    assert_equal ["id", "location", "time", "user_id", "dog_id"], data.keys
+    assert_equal ["id", "location", "time", "user_id"], data.keys
   end
 
   test "destroy" do
     assert_difference "Playdate.count", -1 do
-      delete "/playdates/#{@playdate.id}.json"
+      delete "/playdates/#{Playdate.first.id}.json"
       assert_response 200
     end
   end

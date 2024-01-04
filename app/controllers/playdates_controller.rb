@@ -9,7 +9,6 @@ class PlaydatesController < ApplicationController
       location: params[:location],
       time: params[:time],
       user_id: params[:user_id],
-      dog_id: params[:dog_id],
     )
 
     if @playdate.valid?
