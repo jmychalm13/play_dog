@@ -5,5 +5,7 @@ Rails.application.routes.draw do
 
   resources :playdates
 
+  resources :comments
+
   resources :friendships
 end
