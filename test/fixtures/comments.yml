@@ -6,6 +6,6 @@ one:
   playdate_id: 1
 
 two:
-  content: MyText
-  user_id: 1
-  playdate_id: 1
+  content: MyTextTwo
+  user_id: 2
+  playdate_id: 2
