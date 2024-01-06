@@ -8,6 +8,16 @@ class PlaydatesControllerTest < ActionDispatch::IntegrationTest
       password_confirmation: "password",
       name: "Testy McTesterson"
     )
+    Dog.create(
+      name: "Testy",
+      breed: "test breed",
+      age: 3,
+      user_id: @user.id
+    )
+  end
+
+  def teardown
+    @user.destroy!
   end
 
   test "index" do
@@ -24,6 +34,7 @@ class PlaydatesControllerTest < ActionDispatch::IntegrationTest
         location: "park",
         time: "2024-01-02 13:45:30",
         user_id: User.first.id,
+        dog_id: Dog.first.id,
       } 
     end
   end
@@ -35,7 +46,7 @@ class PlaydatesControllerTest < ActionDispatch::IntegrationTest
     assert_response 200
 
     data = JSON.parse(response.body)
-    assert_equal "updated location", data["location"]
+    assert_equal "updated location", data[:location]
   end
 
   test "show" do
