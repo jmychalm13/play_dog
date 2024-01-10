@@ -14,10 +14,12 @@ class PlaydatesControllerTest < ActionDispatch::IntegrationTest
       age: 3,
       user_id: @user.id
     )
-  end
-
-  def teardown
-    @user.destroy!
+    User.create(
+      email: "fake@fake.com",
+      password: "password",
+      password_confirmation: "password",
+      name: "Test Name"
+    )
   end
 
   test "index" do
@@ -46,7 +48,7 @@ class PlaydatesControllerTest < ActionDispatch::IntegrationTest
     assert_response 200
 
     data = JSON.parse(response.body)
-    assert_equal "updated location", data[:location]
+    assert_equal "updated location", data["location"]
   end
 
   test "show" do

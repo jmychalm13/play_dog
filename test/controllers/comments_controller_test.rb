@@ -8,6 +8,12 @@ class CommentsControllerTest < ActionDispatch::IntegrationTest
       password_confirmation: "password",
       name: "JMo"
     )
+    Dog.create(
+      name: "Testy",
+      breed: "test breed",
+      age: 3,
+      user_id: @user.id
+    )
     @playdate = Playdate.create(
       location: "a place",
       time: "2024-01-02 13:45:30",
@@ -48,7 +54,7 @@ class CommentsControllerTest < ActionDispatch::IntegrationTest
     assert_response 200
 
     data = JSON.parse(response.body)
-    assert_equal "updated content", data[:content]
+    assert_equal "updated content", data["content"]
   end
 
   test "destroy" do

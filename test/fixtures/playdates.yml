@@ -3,9 +3,9 @@
 one:
   location: MyString
   time: 2024-01-02 17:41:36
-  user_id: 1
+  user: one
 
 two:
   location: MyStringTwo
   time: 2024-01-02 18:41:36
-  user_id: 2
+  user: two

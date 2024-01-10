@@ -24,13 +24,10 @@ class CommentsController < ApplicationController
 
   def update
     @comment = Comment.find(params[:id])
-    @comment.update(
-      content: params[:content] || comment.content
-    )
-    if @comment.valid?
+    if @comment.update(comment_params)
       render :show
     else
-      render json: { message: "There was an error updating" }
+      render json: { errors: @commment.errors.full_messages }, status: :unprocessable_entity
     end
   end
 
@@ -39,4 +36,10 @@ class CommentsController < ApplicationController
     comment.destroy
     render json: { message: "Comment successfully deleted." }
   end
+end
+
+private
+
+def comment_params
+  params.permit(:content)
 end

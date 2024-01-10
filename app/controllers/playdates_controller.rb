@@ -20,15 +20,10 @@ class PlaydatesController < ApplicationController
 
   def update
     @playdate = Playdate.find(params[:id])
-    @playdate.update(
-      location: params[:location] || @playdate.location,
-      time: params[:time] || @playdate.time,
-    )
-
-    if @playdate.valid?
-      render :show
+    if @playdate.update(playdate_params)
+      render json: @playdate
     else
-      render json: { message: "There was an error updating this playdate." }
+      render json: { errors: @playdate.errors.full_messages , status: :unprocessable_entity}
     end
   end
 
@@ -43,4 +38,10 @@ class PlaydatesController < ApplicationController
 
     render json: { message: "Playdate successfully destroyed" }
   end
+end
+
+private
+
+def playdate_params
+  params.permit(:location, :time)
 end

@@ -12,7 +12,7 @@ class UsersController < ApplicationController
       password_confirmation: params[:password_confirmation]
     )
     if @user.valid?
-      render :show
+      render :show, status: :created
     else
       render json: { message: "There was an error creating the user." }
     end

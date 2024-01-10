@@ -2,10 +2,10 @@
 
 one:
   content: MyText
-  user_id: 1
-  playdate_id: 1
+  user: one
+  playdate: one
 
 two:
   content: MyTextTwo
-  user_id: 2
-  playdate_id: 2
+  user: two
+  playdate: two

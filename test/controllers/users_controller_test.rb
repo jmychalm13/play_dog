@@ -26,7 +26,7 @@ class UsersControllerTest < ActionDispatch::IntegrationTest
         password: "password",
         password_confirmation: "password"
       }
-      assert_response 200
+      assert_response 201
     end
   end
 

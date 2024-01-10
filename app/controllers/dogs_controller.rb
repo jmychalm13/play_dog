@@ -21,15 +21,10 @@ class DogsController < ApplicationController
 
   def update
     @dog = Dog.find(params[:id])
-    @dog.update(
-      name: params[:name] || @dog.name,
-      breed: params[:breed] || @dog.breed,
-      age: params[:age] || @dog.age,
-    )
-    if @dog.valid?
-      render :show
+    if @dog.update(dog_params)
+      render json: @dog
     else
-      render json: { message: "There was an error updating this dog." }
+      render json: { errors: @dog.errors.full_messages }, status: :unprocessable_entity
     end
   end
 
@@ -38,4 +33,10 @@ class DogsController < ApplicationController
     dog.destroy
     render json: { message: "This pooch has been destroyed!" }
   end
+end
+
+private
+
+def dog_params
+  params.permit(:name, :breed, :age)
 end

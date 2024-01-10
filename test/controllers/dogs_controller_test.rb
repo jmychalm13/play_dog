@@ -1,20 +1,6 @@
 require "test_helper"
 
 class DogsControllerTest < ActionDispatch::IntegrationTest
-  setup do
-    @user = User.create(
-      email: "testEmail@fake.com",
-      password: "password",
-      password_confirmation: "password",
-      name: "Testy McTesterson"
-    )
-    @dog = Dog.create(
-      name: "Test",
-      age: 1,
-      breed: "test",
-      user_id: @user.id
-    )    
-  end
 
   test "index" do
     get "/dogs.json"
@@ -28,7 +14,7 @@ class DogsControllerTest < ActionDispatch::IntegrationTest
     assert_difference "Dog.count", 1 do
       post "/dogs.json", params: {
         name: "Test",
-        user_id: @user.id,
+        user_id: User.first.id,
         age: 1,
         breed: "test"
       }
@@ -37,7 +23,7 @@ class DogsControllerTest < ActionDispatch::IntegrationTest
   end
 
   test "show" do
-    get "/dogs/#{@dog.id}.json"
+    get "/dogs/#{Dog.first.id}.json"
     assert_response 200
 
     data = JSON.parse(response.body)
@@ -45,19 +31,18 @@ class DogsControllerTest < ActionDispatch::IntegrationTest
   end
 
   test "update" do
-    dog = Dog.first
-    patch "/dogs/#{dog.id}.json", params: {
+    patch "/dogs/#{Dog.first.id}.json", params: {
       name: "updated name"
     }
     assert_response 200
 
     data = JSON.parse(response.body)
-    assert_equal "updated name", data[:name]
+    assert_equal "updated name", data["name"]
   end
 
   test "destroy" do
     assert_difference "Dog.count", -1 do
-      delete "/dogs/#{@dog.id}.json"
+      delete "/dogs/#{Dog.first.id}.json"
       assert_response 200
     end
   end
