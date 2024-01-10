@@ -3,4 +3,5 @@ class FriendshipsController < ApplicationController
     @friendships = Friendship.all
     render :index
   end
+
 end
