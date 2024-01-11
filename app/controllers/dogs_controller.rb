@@ -11,7 +11,12 @@ class DogsController < ApplicationController
       breed: params[:breed],
       user_id: params[:user_id]
     )
-    render :show
+
+    if @dog.valid?
+      render :show
+    else
+      render json: { message: "There was an error adding this pup" }
+    end
   end
 
   def show
