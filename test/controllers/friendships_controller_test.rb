@@ -20,10 +20,13 @@ class FriendshipsControllerTest < ActionDispatch::IntegrationTest
     }
     data = JSON.parse(response.body)
     @jwt = data["jwt"]
+    @friendship = Friendship.create(user_id: @user.id, friend_id: @user2.id, status: false)
   end
 
   test "index" do
-    get "/friendships.json"
+    get "/friendships.json", headers: {
+      "Authorization" => "Bearer #{@jwt}"
+    }
     assert_response 200
 
     data = JSON.parse(response.body)
@@ -31,7 +34,6 @@ class FriendshipsControllerTest < ActionDispatch::IntegrationTest
   end
 
   test "create" do
-    pp @jwt
     assert_difference "Friendship.count", 1 do
       post "/friendships.json",
       params: {
@@ -43,5 +45,30 @@ class FriendshipsControllerTest < ActionDispatch::IntegrationTest
       }
       assert_response 200
     end
+  end
+
+  test "show" do
+    get "/friendships/#{Friendship.first.id}.json", headers: {
+      "Authorization" => "Bearer #{@jwt}"
+    }
+    assert_response 200
+
+    data = JSON.parse(response.body)
+    assert_equal ["id", "user_id", "friend_id", "status"], data.keys
+  end
+
+  test "update" do
+    pp "This is the incoming friendship to update", @friendship
+    patch "/friendships/#{@friendship.id}.json", params: {
+      status: "true"
+    },
+    headers: {
+      "Authorization" => "Bearer #{@jwt}"
+    }
+    assert_response 200
+
+    data = JSON.parse(response.body)
+    pp "Response coming back", data
+    assert_equal true, data["status"]
   end
 end

@@ -19,4 +19,28 @@ class FriendshipsController < ApplicationController
     end
   end
 
+  def show
+    @friendship = Friendship.find(params[:id])
+    render :show
+  end
+
+  def update
+  @friendship = Friendship.find(params[:id])
+
+    # Update Friendship attributes using strong parameters
+    if @friendship.update(friendship_params)
+      render :show
+    else
+      render json: { errors: @friendship.errors.full_messages, status: :unprocessable_entity }
+    end
+
+  end
+
 end
+
+private
+
+def friendship_params
+  params.permit(:status)
+end
+

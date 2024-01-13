@@ -21,7 +21,7 @@ class PlaydatesController < ApplicationController
   def update
     @playdate = Playdate.find(params[:id])
     if @playdate.update(playdate_params)
-      render json: @playdate
+      render :show
     else
       render json: { errors: @playdate.errors.full_messages , status: :unprocessable_entity}
     end
