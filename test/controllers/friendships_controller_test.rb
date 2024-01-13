@@ -58,7 +58,6 @@ class FriendshipsControllerTest < ActionDispatch::IntegrationTest
   end
 
   test "update" do
-    pp "This is the incoming friendship to update", @friendship
     patch "/friendships/#{@friendship.id}.json", params: {
       status: "true"
     },
@@ -68,7 +67,15 @@ class FriendshipsControllerTest < ActionDispatch::IntegrationTest
     assert_response 200
 
     data = JSON.parse(response.body)
-    pp "Response coming back", data
     assert_equal true, data["status"]
+  end
+
+  test "destroy" do
+    assert_difference "Friendship.count", -1 do
+      delete "/friendships/#{Friendship.first.id}.json", headers: {
+        "Authorization" => "Bearer #{@jwt}"
+      }
+      assert_response 200
+    end
   end
 end

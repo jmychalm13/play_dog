@@ -36,6 +36,16 @@ class FriendshipsController < ApplicationController
 
   end
 
+  def destroy
+    friendship = Friendship.find(params[:id])
+    friendship.destroy
+    if !friendship
+      render json: { message: "This friendship is over!" }
+    else
+      render json: { error: friendship.errors.full_messages, status: :unprocessable_entity }
+    end
+  end
+
 end
 
 private
