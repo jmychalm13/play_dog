@@ -23,7 +23,6 @@ class UsersController < ApplicationController
     render :show
   end
 
-  # todo: user update method
   def update
     @user = User.find(params[:id])
     @user.update(
