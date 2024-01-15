@@ -6,7 +6,8 @@ class UsersControllerTest < ActionDispatch::IntegrationTest
       email: "test@fake.com",
       password: "password",
       password_confirmation: "password",
-      name: "Testy McTesterson"
+      name: "Testy McTesterson",
+      image_url: "test.jpg"
     )
   end
 
@@ -23,6 +24,7 @@ class UsersControllerTest < ActionDispatch::IntegrationTest
       post "/users.json", params: {
         name: "Jane",
         email: "jane@test.com",
+        image_url: "test.jpg",
         password: "password",
         password_confirmation: "password"
       }
@@ -35,7 +37,7 @@ class UsersControllerTest < ActionDispatch::IntegrationTest
     assert_response 200
 
     data = JSON.parse(response.body)
-    assert_equal ["id", "name", "email"], data.keys
+    assert_equal ["id", "name", "email", "dogs", "image_url"], data.keys
   end
 
   test "update" do

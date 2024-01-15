@@ -6,7 +6,8 @@ class CommentsControllerTest < ActionDispatch::IntegrationTest
       email: "jess@fake.com",
       password: "password",
       password_confirmation: "password",
-      name: "JMo"
+      name: "JMo",
+      image_url: "test.jpg"
     )
     Dog.create(
       name: "Testy",

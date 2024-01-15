@@ -6,7 +6,9 @@ class PlaydatesControllerTest < ActionDispatch::IntegrationTest
       email: "test@fake.com",
       password: "password",
       password_confirmation: "password",
-      name: "Testy McTesterson"
+      name: "Testy McTesterson",
+      image_url: "test.jpg"
+
     )
     Dog.create(
       name: "Testy",
@@ -18,7 +20,8 @@ class PlaydatesControllerTest < ActionDispatch::IntegrationTest
       email: "fake@fake.com",
       password: "password",
       password_confirmation: "password",
-      name: "Test Name"
+      name: "Test Name",
+      image_url: "test.jpg"
     )
   end
 

@@ -8,6 +8,7 @@ class UsersController < ApplicationController
     @user = User.create(
       name: params[:name],
       email: params[:email],
+      image_url: params[:image_url],
       password: params[:password],
       password_confirmation: params[:password_confirmation]
     )
@@ -28,6 +29,7 @@ class UsersController < ApplicationController
     @user.update(
       name: params[:name] || @user.name,
       email: params[:email] || @user.email,
+      image_url: params[:image_url] || @user.image_url
     )
 
     if @user.valid?

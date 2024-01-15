@@ -6,13 +6,15 @@ class FriendshipsControllerTest < ActionDispatch::IntegrationTest
       name: "Tiger",
       email: "tiger@fake.com",
       password: "password",
-      password_confirmation: "password"
+      password_confirmation: "password",
+      image_url: "test.jpg"
     )
     @user2 = User.create(
       name: "Mary Jane",
       email: "mj420@fake.com",
       password: "password",
-      password_confirmation: "password"
+      password_confirmation: "password",
+      image_url: "test.jpg"
     )
     post "/sessions.json", params: {
       email: "tiger@fake.com",

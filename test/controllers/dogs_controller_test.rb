@@ -1,6 +1,21 @@
 require "test_helper"
 
 class DogsControllerTest < ActionDispatch::IntegrationTest
+  setup do
+    @user = User.create(
+      name: "Dan",
+      email: "dan@test.com",
+      image_url: "test.jpg",
+      password: "password",
+      password_confirmation: "password"
+    )
+    post "/sessions.json", params: {
+      email: "dan@test.com",
+      password: "password"
+    }
+    data = JSON.parse(response.body)
+    @jwt = data["jwt"]
+  end
 
   test "index" do
     get "/dogs.json"
@@ -17,6 +32,9 @@ class DogsControllerTest < ActionDispatch::IntegrationTest
         user_id: User.first.id,
         age: 1,
         breed: "test"
+      },
+      headers: {
+        "Authorization" => "Bearer #{@jwt}"
       }
       assert_response 200
     end
@@ -33,6 +51,9 @@ class DogsControllerTest < ActionDispatch::IntegrationTest
   test "update" do
     patch "/dogs/#{Dog.first.id}.json", params: {
       name: "updated name"
+    },
+    headers: {
+      "Authorization" => "Bearer #{@jwt}"
     }
     assert_response 200
 
@@ -42,7 +63,9 @@ class DogsControllerTest < ActionDispatch::IntegrationTest
 
   test "destroy" do
     assert_difference "Dog.count", -1 do
-      delete "/dogs/#{Dog.first.id}.json"
+      delete "/dogs/#{Dog.first.id}.json", headers: {
+        "Authorization" => "Bearer #{@jwt}"
+      }
       assert_response 200
     end
   end

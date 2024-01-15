@@ -6,7 +6,8 @@ class SessionsControllerTest < ActionDispatch::IntegrationTest
       name: "Test",
       email: "test@fake.com",
       password: "password",
-      password_confirmation: "password"
+      password_confirmation: "password",
+      image_url: "test.jpg"
     }
     post "/sessions.json", params: {
       email: "test@fake.com",

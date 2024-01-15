@@ -1,5 +1,4 @@
-ActiveRecord::Schema[7.0].define(version: 2024_01_10_025110) do
-  # These are extensions that must be enabled in order to support this database
+ActiveRecord::Schema[7.0].define(version: 2024_01_15_191215) do
   enable_extension "plpgsql"
 
   create_table "comments", force: :cascade do |t|
@@ -48,6 +47,7 @@ ActiveRecord::Schema[7.0].define(version: 2024_01_10_025110) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.string "password_digest"
+    t.string "image_url"
   end
 
 end
