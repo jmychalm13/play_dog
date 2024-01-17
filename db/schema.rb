@@ -1,4 +1,4 @@
-ActiveRecord::Schema[7.0].define(version: 2024_01_15_191215) do
+ActiveRecord::Schema[7.0].define(version: 2024_01_17_002136) do
   enable_extension "plpgsql"
 
   create_table "comments", force: :cascade do |t|
@@ -16,6 +16,7 @@ ActiveRecord::Schema[7.0].define(version: 2024_01_15_191215) do
     t.integer "user_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.string "behavior"
   end
 
   create_table "friendships", force: :cascade do |t|
