@@ -10,7 +10,8 @@ class DogsController < ApplicationController
       name: params[:name],
       age: params[:age],
       breed: params[:breed],
-      user_id: params[:user_id]
+      user_id: params[:user_id],
+      behavior:params[:behavior],
     )
 
     if @dog.valid?
@@ -44,5 +45,5 @@ end
 private
 
 def dog_params
-  params.permit(:name, :breed, :age)
+  params.permit(:name, :breed, :age, :behavior)
 end
