@@ -1,5 +1,12 @@
-ActiveRecord::Schema[7.0].define(version: 2024_01_17_002136) do
+ActiveRecord::Schema[7.0].define(version: 2024_01_17_214822) do
   enable_extension "plpgsql"
+
+  create_table "behaviors", force: :cascade do |t|
+    t.integer "dog_id"
+    t.string "behavior"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
 
   create_table "comments", force: :cascade do |t|
     t.text "content"
@@ -16,7 +23,6 @@ ActiveRecord::Schema[7.0].define(version: 2024_01_17_002136) do
     t.integer "user_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.string "behavior"
   end
 
   create_table "friendships", force: :cascade do |t|
