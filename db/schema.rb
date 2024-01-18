@@ -1,4 +1,4 @@
-ActiveRecord::Schema[7.0].define(version: 2024_01_17_214822) do
+ActiveRecord::Schema[7.0].define(version: 2024_01_18_213618) do
   enable_extension "plpgsql"
 
   create_table "behaviors", force: :cascade do |t|
@@ -23,6 +23,7 @@ ActiveRecord::Schema[7.0].define(version: 2024_01_17_214822) do
     t.integer "user_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.string "image_url"
   end
 
   create_table "friendships", force: :cascade do |t|

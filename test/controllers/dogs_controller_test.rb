@@ -31,7 +31,8 @@ class DogsControllerTest < ActionDispatch::IntegrationTest
         name: "Test",
         user_id: User.first.id,
         age: 1,
-        breed: "test"
+        breed: "test",
+        image_url: "test.jpg"
       },
       headers: {
         "Authorization" => "Bearer #{@jwt}"
@@ -45,7 +46,7 @@ class DogsControllerTest < ActionDispatch::IntegrationTest
     assert_response 200
 
     data = JSON.parse(response.body)
-    assert_equal ["id", "user_id", "name", "breed", "age"], data.keys
+    assert_equal ["id", "user_id", "name", "breed", "age", "image_url", "behaviors"], data.keys
   end
 
   test "update" do
