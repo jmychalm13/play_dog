@@ -1,7 +1,7 @@
 class DogsController < ApplicationController
-  before_action :authenticate_user, except: [:index, :show]
+  before_action :authenticate_user
   def index
-    @dogs = Dog.all
+    @dogs = Dog.where(user_id: current_user.id)
     render :index
   end
 
@@ -22,8 +22,13 @@ class DogsController < ApplicationController
   end
 
   def show
-    @dog = Dog.find(params[:id])
-    render :show
+    @dog = Dog.find_by(id: params[:id], user_id: current_user.id)
+
+    if @dog
+      render :show
+    else
+      render json: { error: "Dog not found" }, status: :not_found
+    end
   end
 
   def update

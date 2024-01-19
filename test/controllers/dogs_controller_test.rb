@@ -15,14 +15,24 @@ class DogsControllerTest < ActionDispatch::IntegrationTest
     }
     data = JSON.parse(response.body)
     @jwt = data["jwt"]
+
+    @dog = Dog.create(
+      name: "test",
+      breed: "test",
+      age: "test",
+      user_id: @user.id,
+      image_url: "test",
+    )
   end
 
   test "index" do
-    get "/dogs.json"
+    get "/dogs.json", headers: {
+      "Authorization" => "Bearer #{@jwt}"
+    }
     assert_response 200
 
     data = JSON.parse(response.body)
-    assert_equal Dog.count, data.length
+    assert_equal Dog.where(user_id: @user.id).count, data.length
   end
 
   test "create" do
@@ -42,7 +52,9 @@ class DogsControllerTest < ActionDispatch::IntegrationTest
   end
 
   test "show" do
-    get "/dogs/#{Dog.first.id}.json"
+    get "/dogs/#{@dog.id}.json", headers: {
+      "Authorization" => "Bearer #{@jwt}"
+    }
     assert_response 200
 
     data = JSON.parse(response.body)
