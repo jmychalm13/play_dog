@@ -15,4 +15,5 @@ json.friendships user.friendships do |friendship|
   json.friend_id friendship.friend_id
   json.status friendship.status
   json.friend_name friendship.friend_name
+  json.friend_image friendship.friend_image
 end

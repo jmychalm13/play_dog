@@ -9,6 +9,12 @@ class UsersControllerTest < ActionDispatch::IntegrationTest
       name: "Testy McTesterson",
       image_url: "test.jpg"
     )
+    post "/sessions.json", params: {
+      email: "test@fake.com",
+      password: "password"
+    }
+    data = JSON.parse(response.body)
+    @jwt = data["jwt"]
   end
 
   test "index" do
@@ -33,7 +39,9 @@ class UsersControllerTest < ActionDispatch::IntegrationTest
   end
 
   test "show" do
-    get "/users/#{User.first.id}.json"
+    get "/users/#{User.first.id}.json", headers: {
+      "Authorization" => "Bearer #{@jwt}"
+    }
     assert_response 200
 
     data = JSON.parse(response.body)

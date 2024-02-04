@@ -50,13 +50,13 @@ class FriendshipsControllerTest < ActionDispatch::IntegrationTest
   end
 
   test "show" do
-    get "/friendships/#{Friendship.first.id}.json", headers: {
+    get "/friendships/#{@user2.id}.json", headers: {
       "Authorization" => "Bearer #{@jwt}"
     }
     assert_response 200
 
     data = JSON.parse(response.body)
-    assert_equal ["id", "user_id", "friend_id", "status"], data.keys
+    assert_equal ["id", "user_id", "friend_id", "status", "friend_name"], data.keys
   end
 
   test "update" do
