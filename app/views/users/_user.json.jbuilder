@@ -10,3 +10,9 @@ json.dogs user.dogs do |dog|
   json.behaviors dog.behaviors
 end
 json.image_url user.image_url
+json.friendships user.friendships do |friendship|
+  json.id friendship.id
+  json.friend_id friendship.friend_id
+  json.status friendship.status
+  json.friend_name friendship.friend_name
+end
