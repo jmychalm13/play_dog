@@ -1,5 +1,5 @@
 class DogsController < ApplicationController
-  before_action :authenticate_user
+  before_action :authenticate_user, except: [:index, :show]
   def index
     @dogs = Dog.where(user_id: current_user.id)
     render :index
