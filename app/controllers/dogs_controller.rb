@@ -1,7 +1,7 @@
 class DogsController < ApplicationController
   before_action :authenticate_user, except: [:index, :show]
   def index
-    @dogs = Dog.where(user_id: current_user.id)
+    @dogs = Dog.all
     render :index
   end
 
@@ -22,7 +22,7 @@ class DogsController < ApplicationController
   end
 
   def show
-    @dog = Dog.find_by(id: params[:id], user_id: current_user.id)
+    @dog = Dog.find_by(id: params[:id])
 
     if @dog
       render :show
