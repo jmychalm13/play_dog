@@ -1,4 +1,4 @@
-ActiveRecord::Schema[7.0].define(version: 2024_01_18_213618) do
+ActiveRecord::Schema[7.0].define(version: 2024_02_10_230207) do
   enable_extension "plpgsql"
 
   create_table "behaviors", force: :cascade do |t|
@@ -6,6 +6,7 @@ ActiveRecord::Schema[7.0].define(version: 2024_01_18_213618) do
     t.string "behavior"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.index ["dog_id", "behavior"], name: "index_behaviors_on_dog_id_and_behavior", unique: true
   end
 
   create_table "comments", force: :cascade do |t|
