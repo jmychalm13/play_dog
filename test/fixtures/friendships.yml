@@ -1,10 +1,12 @@
 # Read about fixtures at https://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
 one:
+  id: 1
   user: one
   friend: two (User)
   status: false
 
 two:
+  id: 2
   user: two
   friend: one (User)
   status: true

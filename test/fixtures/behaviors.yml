@@ -1,9 +1,9 @@
 # Read about fixtures at https://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
 
 one:
-  dog_id: 1
-  behavior: MyString
+  dog_id: one
+  behavior: MyString1
 
 two:
-  dog_id: 1
-  behavior: MyString
+  dog_id: two
+  behavior: MyString2

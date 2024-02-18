@@ -32,7 +32,7 @@ class FriendshipsControllerTest < ActionDispatch::IntegrationTest
     assert_response 200
 
     data = JSON.parse(response.body)
-    assert_equal Friendship.count, data.length
+    assert_equal Friendship.where(user_id: @user.id).count, data.length
   end
 
   test "create" do
@@ -50,7 +50,7 @@ class FriendshipsControllerTest < ActionDispatch::IntegrationTest
   end
 
   test "show" do
-    get "/friendships/#{@user2.id}.json", headers: {
+    get "/friendships/#{@friendship.id}.json", headers: {
       "Authorization" => "Bearer #{@jwt}"
     }
     assert_response 200
