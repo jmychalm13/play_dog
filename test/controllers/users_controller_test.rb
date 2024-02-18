@@ -45,11 +45,14 @@ class UsersControllerTest < ActionDispatch::IntegrationTest
     assert_response 200
 
     data = JSON.parse(response.body)
-    assert_equal ["id", "name", "email", "dogs", "image_url"], data.keys
+    assert_equal ["id", "name", "email", "dogs", "image_url", "friendships"], data.keys
   end
 
   test "update" do
-    patch "/users/#{@user.id}.json", params: {
+    patch "/users/#{@user.id}.json", headers: {
+      "Authorization" => "Bearer #{@jwt}"
+    }, 
+    params: {
       email: "updated email"
     }
     assert_response 200
