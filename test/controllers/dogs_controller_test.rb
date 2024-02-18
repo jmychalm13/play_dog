@@ -32,7 +32,7 @@ class DogsControllerTest < ActionDispatch::IntegrationTest
     assert_response 200
 
     data = JSON.parse(response.body)
-    assert_equal Dog.where(user_id: @user.id).count, data.length
+    assert_equal Dog.count, data.length
   end
 
   test "create" do
