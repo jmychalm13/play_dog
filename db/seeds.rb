@@ -54,23 +54,43 @@ puts "Seeding started"
 
 # ])
 
-# db/seeds.rb
-
 # Create an array of dog behaviors
-behaviors = ['friendly', 'vocal', 'playful', 'curious', 'energetic', 'shy', 'loyal', 'stubborn', 'gentle']
+# behaviors = ['friendly', 'vocal', 'playful', 'curious', 'energetic', 'shy', 'loyal', 'stubborn', 'gentle']
 
-# Seed the Behavior model with 10 items
+# # Seed the Behavior model with 10 items
+# 10.times do
+#   # Randomly select a dog_id from the given numbers
+#   dog_id = [2, 3, 4, 5, 6, 7].sample
+
+#   # Randomly select behaviors (you can have more than one behavior per id)
+#   selected_behaviors = behaviors.sample(rand(1..behaviors.length))
+
+#   # Create Behavior records
+#   selected_behaviors.each do |behavior|
+#     Behavior.create(dog_id: dog_id, behavior: behavior)
+#   end
+# end
+
+# 10.times do
+#   user = User.new(
+#     name: Faker::Name.name,
+#     email: Faker::Internet.email,
+#     image_url: "https://picsum.photos/200/300?random=#{rand(1..1000)}"
+#   )
+#   user.password = 'password'
+#   user.password_confirmation = 'password'
+#   user.save
+# end
+
 10.times do
-  # Randomly select a dog_id from the given numbers
-  dog_id = [2, 3, 4, 5, 6, 7].sample
-
-  # Randomly select behaviors (you can have more than one behavior per id)
-  selected_behaviors = behaviors.sample(rand(1..behaviors.length))
-
-  # Create Behavior records
-  selected_behaviors.each do |behavior|
-    Behavior.create(dog_id: dog_id, behavior: behavior)
-  end
+  user_ids = User.pluck(:id)
+  dog = Dog.new(
+    name: Faker::Creature::Dog.name,
+    breed: Faker::Creature::Dog.breed,
+    age: rand(1..12),
+    user_id: user_ids.sample
+  )
+  dog.save
 end
 
 
