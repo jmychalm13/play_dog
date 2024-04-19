@@ -11,25 +11,25 @@ puts "Seeding started"
   user.save
 end
 
-user_ids = User.pluck(:id)
-10.times do
-  dog = Dog.new(
-    name: Faker::Creature::Dog.name,
-    breed: Faker::Creature::Dog.breed,
-    age: rand(1..12),
-    user_id: user_ids.sample
-  )
-  dog.save
-end
+# user_ids = User.pluck(:id)
+# 10.times do
+#   dog = Dog.new(
+#     name: Faker::Creature::Dog.name,
+#     breed: Faker::Creature::Dog.breed,
+#     age: rand(1..12),
+#     user_id: user_ids.sample
+#   )
+#   dog.save
+# end
 
-user_ids.each do |user_id|
-  Dog.create(
-    name: Faker::Creature::Dog.name,
-    breed: Faker::Creature::Dog.breed,
-    age: rand(1..12),
-    user_id: user_id
-  ) unless Dog.exists?(user_id: user_id)
-end
+# user_ids.each do |user_id|
+#   Dog.create(
+#     name: Faker::Creature::Dog.name,
+#     breed: Faker::Creature::Dog.breed,
+#     age: rand(1..12),
+#     user_id: user_id
+#   ) unless Dog.exists?(user_id: user_id)
+# end
 
 
 puts "Seeding complete"
