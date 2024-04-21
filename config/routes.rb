@@ -12,4 +12,8 @@ Rails.application.routes.draw do
   resources :friendships
 
   resources :behaviors
+
+  resources :cloudinary_test, only: [:index] do
+    post :upload, on: :collection
+  end
 end

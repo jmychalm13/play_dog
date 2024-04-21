@@ -1,0 +1,11 @@
+<!-- app/views/cloudinary_test/index.html.erb -->
+<h1>Cloudinary Test</h1>
+
+<%= form_tag(upload_cloudinary_test_index_path, method: :post, multipart: true) do %>
+  <%= file_field_tag :image %>
+  <%= submit_tag "Upload Image" %>
+<% end %>
+
+<% if @uploaded_image.present? %>
+  <%= image_tag @uploaded_image["url"] %>
+<% end %>
