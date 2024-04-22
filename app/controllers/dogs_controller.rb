@@ -8,6 +8,13 @@ class DogsController < ApplicationController
   def create
     user_id = params[:user_id]
 
+    image_url = params[:image_url]
+
+    if params[:image_url]
+      response = Cloudinary::Uploader.upload(params["image_url"], resource_type: :auto)
+      image_url = response["secure_url"]
+    end
+
     existing_dog = Dog.find_by(user_id: user_id, name: params[:name])
 
     if existing_dog
@@ -18,7 +25,7 @@ class DogsController < ApplicationController
         age: params[:age],
         breed: params[:breed],
         user_id: params[:user_id],
-        image_url: params[:image_url]
+        image_url: image_url
       )
   
       if @dog.valid?
