@@ -1,4 +1,8 @@
 class Behavior < ApplicationRecord
   belongs_to :dog
-  validates :behavior, uniqueness: { scope: :dog_id, message: "this behavior has already been adding to this dog" }
+
+  PREDEFINED_BEHAVIORS = ["Playful", "Happy", "Reactive", "Calm", "Nervous"]
+
+  validates :behavior, inclusion: { in: PREDEFINED_BEHAVIORS }
+  validates :rating, numericality: { only_integer: true, greater_than_or_equal_to: 1, less_than_or_equal_to: 5 }
 end
