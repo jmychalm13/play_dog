@@ -5,11 +5,19 @@ class BehaviorsController < ApplicationController
   end
 
   def create
-    @behavior = Behavior.create(
-      dog_id: params[:dog_id],
-      behavior: params[:behavior]
-    )
-    render :show
+    pp params[:behavior][:dog_id]
+    params[:behavior_attributes].each do |x|
+      @behavior = Behavior.create(
+        dog_id: params[:behavior][:dog_id],
+        behavior: x[:behavior],
+        rating: x[:rating]
+      )
+    end
+    # @behavior = Behavior.create(
+    #   dog_id: params[:dog_id],
+    #   behavior: params[:behavior]
+    # )
+    # render :show
   end
 
   def show
