@@ -49,7 +49,7 @@ class DogsController < ApplicationController
 
   def update
     @dog = Dog.find(params[:id])
-    
+
     if params[:dog][:image_url].present? && params[:dog][:image_url].is_a?(ActionDispatch::Http::UploadedFile)
       uploaded_file = params[:dog][:image_url]
       cloudinary_response = Cloudinary::Uploader.upload(uploaded_file.tempfile.path)
@@ -78,5 +78,5 @@ end
 private
 
 def dog_params
-  params.permit(:name, :breed, :age, :image_url)
+  params.require(:dog).permit(:name, :breed, :age, :image_url)
 end
