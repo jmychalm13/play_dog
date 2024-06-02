@@ -49,20 +49,22 @@ class DogsController < ApplicationController
 
   def update
     @dog = Dog.find(params[:id])
-    if params[:image_url]
-      uploaded_file = params[:image_url]
-      if uploaded_file.respond_to?(:tempfile)
-        cloudinary_response = Cloudinary::Uploader.upload(uploaded_file.tempfile.path)
-        image_url = cloudinary_response["secure_url"]
+    
+    if params[:dog][:image_url].present? && params[:dog][:image_url].is_a?(ActionDispatch::Http::UploadedFile)
+      uploaded_file = params[:dog][:image_url]
+      cloudinary_response = Cloudinary::Uploader.upload(uploaded_file.tempfile.path)
+      image_url = cloudinary_response["secure_url"]
+      if @dog.update(dog_params.merge(image_url: image_url))
+        render json: @dog
       else
-        render json: { error: 'Invalid file upload' }, status: :unprocessable_entity
-        return
+        render json: { errors: @dog.errors.full_messages }, status: :unprocessable_entity
       end
-    end
-    if @dog.update(dog_params.merge(image_url: image_url))
-      render json: @dog
     else
-      render json: { errors: @dog.errors.full_messages }, status: :unprocessable_entity
+      if @dog.update(dog_params)
+        render json: @dog
+      else
+        render json: { errors: @dog.errors.full_messages }, status: :unprocessable_entity
+      end
     end
   end
 
